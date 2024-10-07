@@ -1,0 +1,1 @@
+# plugins-clip-for-woocommerce
