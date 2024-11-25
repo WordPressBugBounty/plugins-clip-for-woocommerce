@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Clip for WooCommerce
  * Description: Payment gateway for WooCommerce
- * Version: 1.1.3
+ * Version: 1.1.4
  * Requires PHP: 7.0
  * Author: Clip
  * Author URI: https://www.clip.mx/
@@ -32,7 +32,7 @@ if ( ! class_exists( 'Clip' ) ) {
  */
 class Clip {
 
-	const VERSION                  = '1.1.3';
+	const VERSION                  = '1.1.4';
 	const PLUGIN_NAME              = 'Clip';
 	const MAIN_FILE                = __FILE__;
 	const MAIN_DIR                 = __DIR__;
@@ -41,9 +41,9 @@ class Clip {
 	const META_CLIP_PAYMENT_STATUS = '_CLIP_PAYMENT_STATUS';
 	const META_CLIP_RECEIPT_NO     = '_CLIP_RECEIPT_NO';
 	const ONBOARDING_URL           = 'https://clip-onboarding.conexa.ai';
-	//const ONBOARDING_URL = 'https://clip-woocommerce-stage.conexa.ai';
+	// const ONBOARDING_URL = 'https://clip-woocommerce-stage.conexa.ai';
 	const API_BASE_URL = 'https://api-gw.payclip.com';
-	//const API_BASE_URL = 'https://stageapi-gw.payclip.com';
+	// const API_BASE_URL = 'https://stageapi-gw.payclip.com';
 
 	/**
 	 * Checks system requirements
