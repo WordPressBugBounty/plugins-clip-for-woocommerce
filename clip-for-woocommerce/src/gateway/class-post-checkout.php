@@ -9,7 +9,7 @@ namespace Ecomerciar\Clip\Gateway;
 
 use Ecomerciar\Clip\Helper\Helper;
 use Ecomerciar\Clip\Sdk\ClipSdk;
-use \WC_Payment_Gateway;
+use WC_Payment_Gateway;
 use Ecomerciar\Clip\Gateway\WC_Clip;
 
 defined( 'ABSPATH' ) || exit();
@@ -87,10 +87,8 @@ class PostCheckout {
 			$clip_cta_flag = isset( $_GET['clip_cta'] ) ? 'true' : 'false';
 		if ( ! isset( $_GET['clip_nonce'] ) ) {
 			$clip_cta_flag = 'false';
-		} else {
-			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['clip_nonce'] ) ), \Clip::GATEWAY_ID ) ) {
+		} elseif ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['clip_nonce'] ) ), \Clip::GATEWAY_ID ) ) {
 				$clip_cta_flag = 'false';
-			}
 		}
 		?>
 		<script type="text/javascript">

@@ -102,14 +102,22 @@ class Webhooks {
 	 * @return int
 	 */
 	private static function get_order_id( array $data ) {
-		if ( isset( $data['payment_request_id'] ) ) {
+		$clip_id = null;
+		
+		if ( isset( $data['id'] ) ) {
+			$clip_id = filter_var( $data['id'], FILTER_SANITIZE_STRING );
+		} elseif ( isset( $data['payment_request_id'] ) ) {
 			$clip_id = filter_var( $data['payment_request_id'], FILTER_SANITIZE_STRING );
+		}
+		
+		if ( $clip_id ) {
 			return Helper::find_order_by_itemmeta_value(
 				\Clip::META_ORDER_PAYMENT_ID,
 				$clip_id
 			);
 		}
-
+		
+		return null;
 	}
 
 	/**
@@ -123,30 +131,36 @@ class Webhooks {
 		$return = true;
 		$data   = wp_unslash( $data );
 
-		if ( ! isset( $data['payment_request_id'] ) || empty( $data['payment_request_id'] ) ) {
+		if ( ( ! isset( $data['id'] ) || empty( $data['id'] ) ) && 
+			 ( ! isset( $data['payment_request_id'] ) || empty( $data['payment_request_id'] ) ) ) {
 			Helper::log(
 				__FUNCTION__ .
-					__( '- Webhook received without payment_request_id.', 'clip' )
+					__( '- Webhook received without payment ID (id or payment_request_id).', 'clip' )
 			);
 			$return = false;
 		}
-		if ( ! isset( $data['resource_status'] ) || empty( $data['resource_status'] ) ) {
+		
+		if ( ( ! isset( $data['event_type'] ) || empty( $data['event_type'] ) ) && 
+			 ( ! isset( $data['resource_status'] ) || empty( $data['resource_status'] ) ) ) {
 			Helper::log(
 				__FUNCTION__ .
-					__( '- Webhook received without status.', 'clip' )
+					__( '- Webhook received without status (event_type or resource_status).', 'clip' )
 			);
 			$return = false;
 		} else {
+			$status_value = isset( $data['event_type'] ) && ! empty( $data['event_type'] ) 
+				? $data['event_type'] 
+				: $data['resource_status'];
+				
 			Helper::log(
 				__FUNCTION__ .
-
 				sprintf(
 					/* translators: %s: System Flag */
 					__(
 						'- Webhook received status: "%s" .',
 						'clip'
 					),
-					esc_html( $data['resource_status'] )
+					esc_html( $status_value )
 				)
 			);
 		}

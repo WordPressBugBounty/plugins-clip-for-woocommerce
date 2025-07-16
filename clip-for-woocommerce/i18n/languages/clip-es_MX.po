@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: es_AR\n"
+"Language: es_ES\n"
 
 #. Plugin Name of the plugin/theme
 msgid "Clip for WooCommerce"
@@ -147,3 +147,91 @@ msgstr "Tiempo de vencimiento del pago (horas)"
 #: src/gateway/settings.php
 msgid "This field will determine the maximum checkout time to receive your payment with Clip while the order remains pending payment and only one integer value is allowed. If no value is added, the default maximum time will be 72 hours."
 msgstr "Este campo determinará el tiempo máximo de pago para recibir tu pago con Clip mientras el pedido permanece pendiente de pago y solo se permite un valor entero. Si no se agrega ningún valor, el tiempo máximo predeterminado será 72 horas."
+
+#. Tips section in the settings page
+msgid "Tips"
+msgstr "Propinas"
+
+#. Label for the tips toggle
+msgid "Accept Tips"
+msgstr "Aceptar Propinas"
+
+#. Description of the tips option
+msgid "Enable this option to allow customers to add tips during checkout. Tips are accepted with card payments, remote payments, or cash."
+msgstr "Habilite esta opción para permitir que los clientes añadan propinas durante el proceso de compra. Las propinas se aceptan con pagos con tarjeta, pagos remotos o en efectivo."
+
+#. Payment Types section in the settings page
+msgid "Payment Types"
+msgstr "Tipos de Pago"
+
+#. Label for the cards toggle
+msgid "Cards"
+msgstr "Tarjetas"
+
+#. Description for selecting payment types
+msgid "Select the available payment types."
+msgstr "Seleccione los tipos de pago disponibles."
+
+#. Description for selecting card types
+msgid "Select the available cards."
+msgstr "Seleccione las tarjetas disponibles."
+
+#. Customize your link section in the settings page
+msgid "Customize your link"
+msgstr "Personaliza tu enlace"
+
+#. Installments section in the settings page
+msgid "Installments"
+msgstr "Cuotas"
+
+#. Customize months without interest label
+msgid "Customize months without interest"
+msgstr "Personalizar meses sin interés"
+
+#. Installment table headers
+msgid "Installment"
+msgstr "Cuota"
+
+msgid "Activate"
+msgstr "Activar"
+
+msgid "Min Amount"
+msgstr "Monto mínimo"
+
+#. Payment Brands section in the settings page
+msgid "Payment Brands"
+msgstr "Marcas de pago"
+
+#. Description for the payment brands section
+msgid "Select the available payment brands."
+msgstr "Seleccione las marcas de pago disponibles"
+
+msgid "3 months without interest"
+msgstr "3 meses sin interés"
+
+msgid "6 months without interest"
+msgstr "6 meses sin interés"
+
+msgid "9 months without interest"
+msgstr "9 meses sin interés"
+
+msgid "12 months without interest"
+msgstr "12 meses sin interés"
+
+msgid "18 months without interest"
+msgstr "18 meses sin interés"
+
+msgid "21 months without interest"
+msgstr "21 meses sin interés"
+
+msgid "24 months without interest"
+msgstr "24 meses sin interés"
+
+msgid "Credit"
+msgstr "Crédito"
+
+msgid "Debit"
+msgstr "Débito"
+
+msgid "Cash"
+msgstr "Efectivo"
