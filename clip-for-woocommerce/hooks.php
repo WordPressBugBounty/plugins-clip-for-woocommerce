@@ -74,4 +74,3 @@ add_action(
 	)
 );
 
-add_action( 'admin_enqueue_scripts', array( 'Clip', 'register_admin_css_styles' ) );

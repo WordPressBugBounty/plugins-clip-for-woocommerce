@@ -26,18 +26,20 @@ trait DatabaseTrait {
 	) {
 
 		$args = array(
-			'meta_key'     => $meta_key, /* phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key */
-			'meta_value'   => $meta_value, /* phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value */
-			'meta_compare' => '=',
-			'return'       => 'ids',
-		);
-
-		$orders = wc_get_orders( $args );
-
-		if ( ! empty( $orders ) ) {
-			return (int) $orders[0];
-		}
-
-		return $orders;
+			'meta_key'      => $meta_key, 
+			'meta_value'    => $meta_value,  
+			'meta_compare'  => '=', 
+			'return'        => 'ids'
+			);
+		
+	    $orders = wc_get_orders($args);
+		
+		// Helper::log_debug( '$order: '. print_r($orders, true) );
+		
+        if (!empty($orders)) {
+            return (int) $orders[0];
+        }
+		
+        return $orders;
 	}
 }

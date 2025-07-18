@@ -28,17 +28,18 @@ trait HandlePaymentTrait {
 			$options    = Helper::get_options( \Clip::GATEWAY_ID );
 			$sdk        = new ClipSdk( $options['api_key'], $options['api_secret'] );
 			$response   = $sdk->get_payment_data( $order_data );
-			$receipt_no = isset( $response['receipt_no'] ) ? $response['receipt_no'] : '';
+			$receipt_no = isset( $response[ 'receipt_no' ] )? $response[ 'receipt_no' ] : '';
 			$prevStatus = $order->get_meta( '_CLIP_PAYMENT_STATUS' );
 			if ( $prevStatus !== $response['status'] ) {
 
 				if ( 'CHECKOUT_COMPLETED' === $response['status'] || 'CHECKOUT_COMPLETED' === $status ) {
 					$order->payment_complete();
-					if ( ! empty( $receipt_no ) ) {
+					if ( !empty( $receipt_no ) ) {
 						$order->add_order_note(
 							sprintf(
 								/* translators: %s: System Flag */
-								esc_html__( 'Clip - Approved Payment. Receipt: %1$s. ID https://receipt.clip.mx/%2$s', 'clip' ),
+								esc_html__( 'Clip - Approved Payment. Receipt: %s. ID https://receipt.clip.mx/%s', 'clip' ),
+								// esc_html__( 'Clip - Approved Payment. Receipt: %s. ID https://stagereceipt.clip.mx/%s', 'clip' ),
 								$receipt_no,
 								$order_data
 							)
@@ -48,6 +49,7 @@ trait HandlePaymentTrait {
 							sprintf(
 								/* translators: %s: System Flag */
 								esc_html__( 'Clip - Approved Payment. ID https://receipt.clip.mx/%s', 'clip' ),
+								// esc_html__( 'Clip - Approved Payment. ID https://stagereceipt.clip.mx/%s', 'clip' ),
 								$order_data
 							)
 						);
@@ -97,4 +99,5 @@ trait HandlePaymentTrait {
 		}
 		return false;
 	}
+
 }

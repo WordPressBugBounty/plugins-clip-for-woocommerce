@@ -10,7 +10,6 @@ namespace Ecomerciar\Clip\Api;
 use Ecomerciar\Clip\Helper\Helper;
 
 defined( 'ABSPATH' ) || exit();
-
 /**
  * Abstract API Class
  */
@@ -64,40 +63,30 @@ abstract class ApiConnector {
 	/**
 	 * Executes Post Request
 	 *
-	 * @param string $endpoint Target URL for the request.
+	 * @param string $endpoint URL Target Request.
 	 * @param array  $body Data to send.
-	 * @param array  $headers HTTP Headers for the request.
-	 * @param bool   $use_gateway Indicates whether to use the gateway URL.
+	 * @param array  $headers HTTP Headers for Requests.
 	 * @return string
 	 */
 	public function post(
 		string $endpoint,
 		array $body = array(),
-		array $headers = array(),
-		bool $use_gateway = false
+		array $headers = array()
 	) {
-		// Pass the $use_gateway parameter to get_base_url to decide which URL to use.
-		$url = $this->get_base_url( $use_gateway ) . $endpoint;
+		$url = $this->get_base_url() . $endpoint;
 		return $this->exec( 'POST', $url, $body, $headers );
 	}
 
 	/**
 	 * Executes Get Request
 	 *
-	 * @param string $endpoint Target URL for the request.
+	 * @param string $endpoint URL Target Request.
 	 * @param array  $body Data to send.
-	 * @param array  $headers HTTP Headers for the request.
-	 * @param bool   $use_gateway Indicates whether to use the gateway URL.
+	 * @param array  $headers HTTP Headers for Requests.
 	 * @return string
 	 */
-	public function get(
-		string $endpoint,
-		array $body = array(),
-		array $headers = array(),
-		bool $use_gateway = false
-	) {
-		// Pass the $use_gateway parameter to get_base_url to decide which URL to use.
-		$url = $this->get_base_url( $use_gateway ) . $endpoint;
+	public function get( string $endpoint, array $body = array(), array $headers = array() ) {
+		$url = $this->get_base_url() . $endpoint;
 		if ( ! empty( $body ) ) {
 			$url .= '?' . http_build_query( $body );
 		}

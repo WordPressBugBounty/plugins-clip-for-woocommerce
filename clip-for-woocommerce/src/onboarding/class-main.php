@@ -36,26 +36,27 @@ class Main {
 	 * Get content
 	 */
 	public static function content() {
-		$data     = array();
-		$site_url = get_site_url();
-		$nonce    = wp_create_nonce( \Clip::GATEWAY_ID );
+		$data    = array();
+		$siteUrl = get_site_url();
+		$nonce   = wp_create_nonce( \Clip::GATEWAY_ID );
 
-		$current_language = get_bloginfo( 'language' );
-		$language_slug    = '/en/';
-		if ( 0 === strpos( $current_language, 'es' ) ) {
+		$currentLanguage = get_bloginfo( 'language' );
+		$language_slug   = '/en/';
+		if ( 0 === strpos( $currentLanguage, 'es' ) ) {
 			$language_slug = '/es/';
 		}
 
-		$front_url = \Clip::CLIP_ONBOARDING[ \Clip::CLIP_ENVIRONMENT ] . $language_slug;
+		$frontUrl = \Clip::ONBOARDING_URL . $language_slug;
 
-		$front_url = add_query_arg( 'ecommerce', 'woo', $front_url );
-		$front_url = add_query_arg( 'wp-nonce', $nonce, $front_url );
-		$front_url = add_query_arg( 'wp-base-url', $site_url, $front_url );
+		$frontUrl = add_query_arg( 'ecommerce', 'woo', $frontUrl );
+		$frontUrl = add_query_arg( 'wp-nonce', $nonce, $frontUrl );
+		$frontUrl = add_query_arg( 'wp-base-url', $siteUrl, $frontUrl );
 
-		$data['settings_url']     = $front_url;
+		$data['settings_url']     = $frontUrl;
 		$data['woo_settings_url'] = esc_url( get_admin_url( null, 'admin.php?page=wc-settings&tab=checkout&section=wc_clip' ) );
 
 		helper::get_template_part( 'page', 'onboarding', $data );
 		return true;
 	}
+
 }

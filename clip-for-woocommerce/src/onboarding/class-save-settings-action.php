@@ -51,43 +51,46 @@ class SaveSettingsAction {
 	 * @return bool/string
 	 */
 	public static function validate_ajax_request() {
-		$error_cd = '';
+		$errorCd = '';
 
 		if ( ! isset( $_POST['wpClipNonce'] ) ) {
 			Helper::log(
 				__FUNCTION__ .
 					__( '- Webhook received without nonce.', 'clip' )
 			);
-			$error_cd = 'missing nonce';
-		} elseif ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpClipNonce'] ) ), \Clip::GATEWAY_ID ) ) {
+			$errorCd = 'missing nonce';
+		} else {
+			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpClipNonce'] ) ), \Clip::GATEWAY_ID ) ) {
 				Helper::log(
 					__FUNCTION__ .
 						__( '- Webhook received with invalid nonce.', 'clip' )
 				);
-				$error_cd = 'nonce';
+				$errorCd = 'nonce';
+			}
 		}
 		if ( ! isset( $_POST['apiKey'] ) ) {
 			Helper::log(
 				__FUNCTION__ .
 					__( '- Webhook received without api_key.', 'clip' )
 			);
-			$error_cd = 'missing apiKey';
+			$errorCd = 'missing apiKey';
 		}
 		if ( ! isset( $_POST['apiSecret'] ) ) {
 			Helper::log(
 				__FUNCTION__ .
 					__( '- Webhook received without api_secret.', 'clip' )
 			);
-			$error_cd = 'missing apiSecret';
+			$errorCd = 'missing apiSecret';
 		}
 
 		Helper::log( $_POST );
 
-		if ( ! empty( $error_cd ) ) {
-			return $error_cd;
+		if ( ! empty( $errorCd ) ) {
+			return $errorCd;
 		}
 
 		return true;
+
 	}
 
 	/**
@@ -114,11 +117,13 @@ class SaveSettingsAction {
 			} else {
 				wp_send_json_success( $ret );
 			}
-		} elseif ( defined( 'TEST_CLIP_RUNNING' ) && TEST_CLIP_RUNNING ) {
-				return false;
 		} else {
-			$res = __( 'WooCommerce Clip Webhook not valid.', 'clip' );
-			wp_send_json_error( $res );
+			if ( defined( 'TEST_CLIP_RUNNING' ) && TEST_CLIP_RUNNING ) {
+				return false;
+			} else {
+				$res = __( 'WooCommerce Clip Webhook not valid.', 'clip' );
+				wp_send_json_error( $res );
+			}
 		}
 		return false;
 	}
