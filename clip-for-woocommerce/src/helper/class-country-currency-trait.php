@@ -25,38 +25,31 @@ trait CountryCurrencyTrait {
 		}
 		return $currency;
 	}
+
 	/**
-	 * Get list of countries
+	 * Get supported currencies for Clip payment gateway
+	 *
+	 * @return array List of supported currencies
 	 */
-	public static function get_countries() {
+	public static function get_clip_supported_currencies() {
 		return array(
-			'MX' => 'MXN',  // Mexico.
-			'AR' => 'ARS',  // Argentina.
+			'MXN', // Mexican Peso
+			'USD', // US Dollar
 		);
 	}
 
 	/**
-	 * Check if valid country
+	 * Check if currency is supported by Clip payment gateway
 	 *
-	 * @param string $country Country Code.
-	 */
-	public static function validate_country_code( $country ) {
-		return isset( self::get_countries()[ $country ] );
-	}
-
-	/**
-	 * Check if valid country/currency
-	 *
-	 * @param string $country Country Code.
 	 * @param string $currency Currency Code.
+	 * @return bool True if currency is supported, false otherwise
 	 */
-	public static function validate_country_currency_code( $country, $currency ) {
-		$ret = false;
-		if ( self::validate_country_code( $country ) ) {
-			$ret = ( self::get_countries()[ $country ] === $currency );
+	public static function is_clip_currency_supported( $currency = null ) {
+		if ( null === $currency ) {
+			$currency = self::get_currency();
 		}
-		return $ret;
+		
+		return in_array( strtoupper( $currency ), self::get_clip_supported_currencies(), true );
 	}
-
 
 }

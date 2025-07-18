@@ -1,0 +1,103 @@
+.wrap.woocommerce input[type="checkbox"],
+.wrap.woocommerce input:checked[type="checkbox"],
+.wrap.woocommerce input[type="checkbox"]:before,
+.wrap.woocommerce input:checked[type="checkbox"]:before {
+	all: initial;
+}
+.wrap.woocommerce input[type="checkbox"]{
+	position: relative;
+	width: 40px;
+	height: 24px;
+	-webkit-appearance: none;
+	background: #c6c6c6;
+	outline: none;
+	border-radius: 20px;
+	box-shadow: inset 0 0 5px rgba(255, 0, 0, 0.2);
+	transition: 0.7s;
+	margin: 0px;
+	padding: 0px;
+	cursor: pointer;
+}
+
+.wrap.woocommerce input:checked[type="checkbox"] {
+	position: relative;
+	width: 40px;
+	height: 24px;
+	-webkit-appearance: none;
+	background: #ff5722;
+	outline: none;
+	border-radius: 20px;
+	box-shadow: inset 0 0 5px rgba(255, 0, 0, 0.2);
+	transition: 0.7s;
+	margin: 0px;
+	padding: 0px;
+	cursor: pointer;
+}
+
+.wrap.woocommerce input[type="checkbox"]:before {
+	content: '';
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border-radius: 18px;
+	top: 3px;
+	left: 4px;
+	background: #ffffff;
+	transform: scale(1.1);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	transition: .5s;
+	cursor: pointer;
+}
+.wrap.woocommerce input:checked[type="checkbox"]:before {
+	content: '';
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border-radius: 18px;
+	top: 3px;
+	left: 18px;
+	background: #ffffff;
+	transform: scale(1.1);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	transition: .5s;
+	cursor: pointer;
+}
+
+.wrap.woocommerce fieldset.payment_types{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 20px;
+	width: fit-content;
+}
+.wrap.woocommerce fieldset.payment_types label{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	width: fit-content;
+}
+
+.wrap.woocommerce fieldset.payment_card_brands{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 20px;
+}
+
+.wrap.woocommerce fieldset.payment_card_brands label{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.wrap.woocommerce fieldset.payment_card_brands label img{
+	width: 40px;
+	height: 20px;
+	object-fit: contain;
+}

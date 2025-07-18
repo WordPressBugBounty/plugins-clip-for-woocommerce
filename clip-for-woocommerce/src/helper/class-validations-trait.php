@@ -50,7 +50,6 @@ trait ValidationsTrait {
 		} else {
 			return $sdk->validate_receipt();
 		}
-
 	}
 
 	/**

@@ -49,22 +49,19 @@ abstract class RequestDepositAction {
 				$response['payment_request_id']
 			);
 			$order->save();
-		} else {
-			if ( isset( $response['code_message'] ) && '004' === $response['code_message'] ) {
+		} elseif ( isset( $response['code_message'] ) && '004' === $response['code_message'] ) {
 				$order->add_order_note(
 					sprintf(
 						esc_html__( 'Clip: Requested maximum payment limit reached.', 'clip' )
 					)
 				);
 
-			} else {
-				$order->add_order_note(
-					sprintf(
-						esc_html__( 'Clip: It was not possible to create a payment_link.', 'clip' )
-					)
-				);
-
-			}
+		} else {
+			$order->add_order_note(
+				sprintf(
+					esc_html__( 'Clip: It was not possible to create a payment_link.', 'clip' )
+				)
+			);
 		}
 
 		$response = isset( $response['payment_request_url'] ) ? $response['payment_request_url'] : '';
@@ -78,39 +75,37 @@ abstract class RequestDepositAction {
 	 * @return bool/string
 	 */
 	public static function validate_ajax_request() {
-		$errorCd = '';
+		$error_cd = '';
 		if ( ! isset( $_POST['nonce'] ) ) {
-			$errorCd = 'missing nonce';
-		} else {
-			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), \Clip::GATEWAY_ID ) ) {
-				$errorCd = 'nonce';
-			}
+			$error_cd = 'missing nonce';
+		} elseif ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), \Clip::GATEWAY_ID ) ) {
+				$error_cd = 'nonce';
 		}
 		if ( ! isset( $_POST['order_id'] ) ) {
-			$errorCd = 'missing order_id';
+			$error_cd = 'missing order_id';
 		} else {
 			if ( empty( $_POST['order_id'] ) ) {
-				$errorCd = 'order_id';
+				$error_cd = 'order_id';
 			}
 
 			$order_id = filter_var( wp_unslash( $_POST['order_id'] ), FILTER_SANITIZE_NUMBER_INT );
 			$order    = wc_get_order( $order_id );
 			if ( ! $order ) {
-				$errorCd = 'not order';
+				$error_cd = 'not order';
 			}
 
 			$payment_method = $order->get_payment_method();
 			if ( empty( $payment_method ) ) {
-				$errorCd = 'not payment method';
+				$error_cd = 'not payment method';
 			}
 
 			if ( \Clip::GATEWAY_ID !== $payment_method ) {
-				$errorCd = 'not clip';
+				$error_cd = 'not clip';
 			}
 		}
 
-		if ( ! empty( $errorCd ) ) {
-			return $errorCd;
+		if ( ! empty( $error_cd ) ) {
+			return $error_cd;
 		}
 
 		return true;
@@ -154,13 +149,11 @@ abstract class RequestDepositAction {
 			} else {
 				wp_send_json_success( $ret );
 			}
-		} else {
-			if ( defined( 'TEST_CLIP_RUNNING' ) && TEST_CLIP_RUNNING ) {
+		} elseif ( defined( 'TEST_CLIP_RUNNING' ) && TEST_CLIP_RUNNING ) {
 				return false;
-			} else {
-				$res = __( 'Sorry, this order is invalid and cannot be paid. Contact customer service.', 'clip' );
-				wp_send_json_error( $res );
-			}
+		} else {
+			$res = __( 'Sorry, this order is invalid and cannot be paid. Contact customer service.', 'clip' );
+			wp_send_json_error( $res );
 		}
 		return false;
 	}

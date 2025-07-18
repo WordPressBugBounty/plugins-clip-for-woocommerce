@@ -17,5 +17,4 @@ trait AssetsTrait {
 	public static function get_assets_folder_url() {
 		return plugin_dir_url( \Clip::MAIN_FILE ) . 'assets';
 	}
-
 }
